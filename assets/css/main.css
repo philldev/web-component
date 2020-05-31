@@ -1,0 +1,275 @@
+/* general */
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+body {
+  --main-color: #008fe2b9;
+  color: #5a5a5a;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  min-height: 100vh;
+}
+
+.box {
+  width: 450px;
+  padding: 15px 0;
+  border-radius: 6px;
+}
+
+.top {
+  position: relative;
+  padding-top: 20px;
+  width: 100vw;
+  background-color: #008fe249;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top::before {
+  content: '';
+  z-index: -1;
+  background-image: url(/assets/img/top-bg.jpg);
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: -70px;
+  left: 0;
+  filter: blur(4px);
+
+}
+
+/* Budget Display */
+.budget-display {
+  display: flex;
+  flex-direction: column;
+  background-color: #16445c;
+  margin-bottom: 10px;
+}
+
+.budget-display h2, .budget-display h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.budget-display h1 {
+  font-weight: 300;
+  font-size: 2.5rem;
+}
+
+.income-display,.expense-display {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin: 0 auto;
+  color: white;
+  padding: 10px 15px;
+}
+
+.income-display {
+  background-color: #75d8bf;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.expense-display {
+  background-color: #f07777;
+  color: #fff;
+}
+
+.income-display div, .expense-display div {
+  width: 350px;
+}
+
+.expense-val, .text-left {
+  float: left;
+}
+.expense-perc, .text-right {
+  float: right;
+}
+
+/* Budget Input */
+.budget-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #16445c;
+}
+
+.input-wrapper {
+  width: auto;
+  margin: 0 auto;
+}
+
+.description {
+  width: 200px;
+}
+
+.value {
+  width:70px;
+}
+
+input, button, select {
+  padding: 4px 6px;
+  border: 1px solid #a0a0a0;
+  border-radius: 2px;
+}
+
+.btn-add {
+  background-color: var(--main-color);
+  border: none;
+  color: white;
+  font-weight: bold;
+  width: 50px;
+}
+
+/* Budget items */
+
+.budget-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 20px;
+  background-color: #16445c;
+  height: calc(100vh - 328px);
+}
+
+.income-list, .expense-list {
+  width: 450px;
+}
+.budget-items h4 {
+  text-align: center;
+}
+
+.income-list {
+  margin-right: 15px;
+}
+
+.expense-list {
+  margin-left: 15px;
+}
+
+.expense-item, .income-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.item-delete {
+  display: inline-block;
+  position: absolute;
+  right: -20px;
+  opacity: 0;
+  transition: all .3s ease-out;
+  color: rgb(48, 48, 48);
+  font-size: 1.5rem;
+}
+
+.item-delete i {
+  color: #fff;
+  position: relative;
+  top: -3px;
+}
+
+.item-value {
+  text-align: right;
+  display: inline-block;
+  position: absolute;
+  width: 200px;
+  right: 0;
+  top: 0;
+  transition: all .3s ease-out;
+}
+
+.item-right {
+  position: relative;
+}
+
+.item-right:hover .item-delete {
+  opacity: 1;
+  right: -5px;
+}
+
+.item-right:hover .item-value {
+  right: 20px;
+}
+
+.income-list, .expense-list {
+  color: #fff;
+  /* background-color: #fff; */
+}
+
+.income-list .item-value {
+  color: green;
+}
+
+.expense-list .item-value {
+  color: red;
+}
+
+.income-list h4 {
+  background-color: #44c5a5;
+  color: #fff;
+  padding: 5px 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px ;
+}
+
+.expense-list h4 {
+  background-color: #fa6f6f;
+  color: #fff;
+  padding: 5px 0;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px ;
+}
+
+.income-item, .expense-item {
+  padding: 7px 5px;
+}
+
+.income-item:nth-of-type(even), .expense-item:nth-of-type(even) {
+  background-color: #284b5f;
+} 
+
+/* Media queries */
+
+@media screen and (max-width: 930px) {
+  .budget-items {
+    flex-direction: column;
+    justify-content: start;
+  }
+  .box {
+    width: 350px;
+    padding: 15px 0;
+  }
+  .income-display,.expense-display {
+    width: 85%;
+  }
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  .description, .value  {
+    width: 100%;
+  }
+  input, button, select {
+    margin-bottom: 5px;
+  }
+  .btn-add {
+    margin: 0 auto;
+  }
+
+  .income-list, .expense-list {
+    width: 350px;
+    margin: 0 auto;
+  }
+}

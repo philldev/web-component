@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget App</title>
+    <!-- line awesome icon -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+ -->
+    <link rel="stylesheet" href="/assets/font-icon/css/line-awesome.min.css" />
+    <!-- roboto fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- main css -->
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <div class="top">
+      <!-- Budget display -->
+      <section class="budget-display box">
+        <!-- display month -->
+        <h2 id="month">Budget available in %month%</h2>
+        <!-- display budget -->
+        <h1 id="budget__value__display">--</h1>
+        <div class="income-display">
+          <!-- display income -->
+          <div>Income</div>
+          <div id="total__income__display">--</div>
+        </div>
+        <div class="expense-display">
+          <!-- display expense -->
+          <div>Expense</div>
+          <div>
+            <span class="expense-val" id="total__expenses__display">--</span>
+            <span class="expense-perc" id="exp__percentage__display"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Budget Input -->
+      <section class="budget-input box">
+        <div class="input-wrapper">
+          <!-- input type -->
+          <select id="budget__type__input">
+            <option id="inc" class="inc" value="inc">Income</option>
+            <option id="exp" class="exp" value="exp">Expense</option>
+          </select>
+          <!-- input description -->
+          <input
+            type="text"
+            class="description"
+            id="budget__description__input"
+            placeholder="description"
+          />
+          <!-- input value -->
+          <input
+            class="value"
+            type="text"
+            id="budget__value__input"
+            placeholder="value"
+          />
+          <!-- add button -->
+          <button class="btn-add" id="budget__add__input">add</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="bottom">
+      <!-- Budget Items -->
+      <section id="item__list" class="budget-items">
+        <!-- income list -->
+        <div class="income-list" id="income__list">
+          <h4>INCOME</h4>
+        </div>
+        <!-- expense list -->
+        <div class="expense-list" id="expenses__list">
+          <h4>EXPENSES</h4>
+        </div>
+      </section>
+    </div>
+
+    <!-- script -->
+    <script src="/assets/js/main.js"></script>
+    <!-- end -->
+  </body>
+</html>
