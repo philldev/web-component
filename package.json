@@ -1,0 +1,23 @@
+{
+  "name": "budgetapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "snowpack dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philldev/budgetapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philldev/budgetapp/issues"
+  },
+  "homepage": "https://github.com/philldev/budgetapp#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "snowpack": "^3.0.11"
+  }
+}
