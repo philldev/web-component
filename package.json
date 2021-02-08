@@ -16,7 +16,9 @@
     "url": "https://github.com/philldev/budgetapp/issues"
   },
   "homepage": "https://github.com/philldev/budgetapp#readme",
-  "dependencies": {},
+  "dependencies": {
+    "lit-element": "^2.4.0"
+  },
   "devDependencies": {
     "snowpack": "^3.0.11"
   }
