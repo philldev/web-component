@@ -19,10 +19,20 @@ export default css`
     text-align: center;
     display: flex;
     gap: 16px;
-    padding: 8px 0;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  .top-border {
+    background: linear-gradient(
+      270deg,
+      #f50a81 25.28%,
+      #9d09db 59.7%,
+      #f722c9 97.75%
+    );
+    width: 100%;
+    height: 15px;
   }
   .header h1 {
     font-weight: bold;
@@ -124,5 +134,10 @@ export default css`
   }
   .transactions-item__amount {
     grid-area: amount;
+  }
+
+  .empty {
+    text-align: center;
+    grid-area: list;
   }
 `

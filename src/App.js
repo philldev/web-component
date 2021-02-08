@@ -47,6 +47,7 @@ export default class App extends LitElement {
       }
       this._AddNewItem(newItem)
     }
+    e.target.reset()
   }
   render() {
     console.log(this.allData)
@@ -55,19 +56,8 @@ export default class App extends LitElement {
         ${header}
         <main class="main">
           <div class="app">
-            ${addTrForm(this._handleSubmit)}
-            <div class="transactions">
-              <h2>Transaction List</h2>
-              <ul class="transactions-list">
-                ${this.allData.map(
-                  (item) => html`
-                    <li class="transactions-item">
-                      <p class="transactions-item__desc">${item.desc}</p>
-                      <p class="transactions-item__amount">$ ${item.amount}</p>
-                    </li>
-                  `
-                )}
-              </ul>
+            ${AddTrForm(this._handleSubmit)}
+            ${Transactions({ allData: this.allData })}
             </div>
           </div>
         </main>
@@ -77,7 +67,27 @@ export default class App extends LitElement {
   }
 }
 
-const addTrForm = (handleSubmit) => {
+const Transactions = ({ allData = [] }) => {
+  return html`
+    <div class="transactions">
+      <h2>Transaction List</h2>
+      ${allData.length === 0
+        ? html` <div class="empty">its empty...</div>`
+        : html` <ul class="transactions-list">
+            ${allData.map(
+              (item) => html`
+                <li class="transactions-item">
+                  <p class="transactions-item__desc">${item.desc}</p>
+                  <p class="transactions-item__amount">$ ${item.amount}</p>
+                </li>
+              `
+            )}
+          </ul>`}
+    </div>
+  `
+}
+
+const AddTrForm = (handleSubmit) => {
   return html`
     <form @submit=${handleSubmit} class="form">
       <h2>Add new transaction</h2>
@@ -107,6 +117,7 @@ const addTrForm = (handleSubmit) => {
 
 const header = html`
   <header class="header">
+    <div class="top-border"></div>
     <h1>Budget App</h1>
     <ul>
       <li>
