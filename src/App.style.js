@@ -10,7 +10,7 @@ export default css`
       'header header header' auto
       '.      main   .     ' 1fr
       'footer footer footer' 4rem /
-      1fr 768px 1fr;
+      1fr minmax(auto, 768px) 1fr;
     background-color: #030914;
     color: #fafafa;
   }
@@ -47,6 +47,7 @@ export default css`
   }
   .main {
     grid-area: main;
+    padding: 0 8px;
   }
   .footer {
     grid-area: footer;
