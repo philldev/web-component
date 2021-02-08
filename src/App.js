@@ -58,7 +58,6 @@ export default class App extends LitElement {
           <div class="app">
             ${AddTrForm(this._handleSubmit)}
             ${Transactions({ allData: this.allData })}
-            </div>
           </div>
         </main>
         <footer class="footer"></footer>
