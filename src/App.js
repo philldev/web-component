@@ -3,6 +3,13 @@ import resetsStyle from "./resets.style";
 import appStyle from "./App.style";
 import shortid from "shortid";
 
+const formatCurrency = (currency) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(currency);
+};
+
 export default class App extends LitElement {
   static get properties() {
     return {
@@ -22,7 +29,7 @@ export default class App extends LitElement {
   }
 
   _AddNewItem(newItem) {
-    console.log(newItem)
+    console.log(newItem);
     if (newItem?.type === "expense") {
       this.expense = [...this.expense, newItem];
     } else if (newItem?.type === " income") {
@@ -43,7 +50,7 @@ export default class App extends LitElement {
     } = e.target;
     if (desc && amount && type) {
       const newItem = {
-        id : shortid.generate(),
+        id: shortid.generate(),
         amount: type === "expense" ? parseInt(amount) * -1 : parseInt(amount),
         desc,
         type,
@@ -96,14 +103,16 @@ const Overview = ({ totalBudget, totalIncome, totalExpense }) => {
       <h2 class="overview-title">Overview</h2>
       <div class="overview-detail">
         <h3 class="overview-total">
-          <span>Total budget</span><span class="amount">$ ${totalBudget}</span>
+          <span>Total budget</span
+          ><span class="amount">${formatCurrency(totalBudget)}</span>
         </h3>
         <h3 class="overview-total">
-          <span>Total income</span><span class="amount">$ ${totalIncome}</span>
+          <span>Total income</span
+          ><span class="amount">${formatCurrency(totalIncome)}</span>
         </h3>
         <h3 class="overview-total">
           <span>Total expense</span
-          ><span class="amount">$ ${totalExpense}</span>
+          ><span class="amount">${formatCurrency(totalExpense)}</span>
         </h3>
       </div>
     </div>
@@ -121,7 +130,9 @@ const Transactions = ({ allData = [] }) => {
               (item) => html`
                 <li class="transactions-item">
                   <p class="transactions-item__desc">${item.desc}</p>
-                  <p class="transactions-item__amount">$ ${item.amount}</p>
+                  <p class="transactions-item__amount">
+                    ${formatCurrency(item.amount)}
+                  </p>
                   <div class="transactions-item__toolbar">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -167,7 +178,7 @@ const AddTrForm = (handleSubmit) => {
       </div>
       <div class="form-field">
         <label for="">Amount</label>
-        <input type="number" name="amount" placeholder="$20" />
+        <input type="number" name="amount" placeholder="${formatCurrency(20)}"/>
       </div>
       <div class="form-field">
         <label for="">Type</label>
