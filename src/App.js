@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit-element";
 import resetsStyle from "./resets.style";
 import appStyle from "./App.style";
+import shortid from "shortid";
 
 export default class App extends LitElement {
   static get properties() {
@@ -21,6 +22,7 @@ export default class App extends LitElement {
   }
 
   _AddNewItem(newItem) {
+    console.log(newItem)
     if (newItem?.type === "expense") {
       this.expense = [...this.expense, newItem];
     } else if (newItem?.type === " income") {
@@ -41,6 +43,7 @@ export default class App extends LitElement {
     } = e.target;
     if (desc && amount && type) {
       const newItem = {
+        id : shortid.generate(),
         amount: type === "expense" ? parseInt(amount) * -1 : parseInt(amount),
         desc,
         type,
