@@ -1,6 +1,6 @@
-import { LitElement, html, css } from 'lit-element'
-import resetsStyle from './resets.style'
-import appStyle from './App.style'
+import { LitElement, html, css } from "lit-element";
+import resetsStyle from "./resets.style";
+import appStyle from "./App.style";
 
 export default class App extends LitElement {
   static get properties() {
@@ -8,63 +8,103 @@ export default class App extends LitElement {
       income: Array,
       expense: Array,
       allData: Array,
-    }
+    };
   }
   constructor() {
-    super()
-    this.income = []
-    this.expense = []
-    this.allData = []
+    super();
+    this.income = [];
+    this.expense = [];
+    this.allData = [];
   }
   static get styles() {
-    return [resetsStyle, appStyle]
+    return [resetsStyle, appStyle];
   }
 
   _AddNewItem(newItem) {
-    if (newItem?.type === 'expense') {
-      this.expense = [...this.expense, newItem]
-    } else if (newItem?.type === ' income') {
-      this.income = [...this.income, newItem]
+    if (newItem?.type === "expense") {
+      this.expense = [...this.expense, newItem];
+    } else if (newItem?.type === " income") {
+      this.income = [...this.income, newItem];
     }
 
     if (newItem) {
-      this.allData = [...this.allData, newItem]
+      this.allData = [...this.allData, newItem];
     }
   }
 
   _handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     const {
       desc: { value: desc },
       amount: { value: amount },
       type: { value: type },
-    } = e.target
+    } = e.target;
     if (desc && amount && type) {
       const newItem = {
-        amount: type === 'expense' ? parseInt(amount) * -1 : parseInt(amount),
+        amount: type === "expense" ? parseInt(amount) * -1 : parseInt(amount),
         desc,
         type,
-      }
-      this._AddNewItem(newItem)
+      };
+      this._AddNewItem(newItem);
     }
-    e.target.reset()
+    e.target.reset();
+  }
+
+  _getTotalBudget() {
+    return this.allData.reduce((prev, curr) => {
+      return prev + curr.amount;
+    }, 0);
+  }
+  _getTotalIncome() {
+    return this.income.reduce((prev, curr) => {
+      return prev + curr.amount;
+    }, 0);
+  }
+  _getTotalExpense() {
+    return this.expense.reduce((prev, curr) => {
+      return prev + curr.amount;
+    }, 0);
   }
   render() {
-    console.log(this.allData)
+    console.log(this.allData);
     return html`
       <div class="app-container">
         ${header}
         <main class="main">
           <div class="app">
+            ${Overview({
+              totalBudget: this._getTotalBudget(),
+              totalExpense: this._getTotalExpense(),
+              totalIncome: this._getTotalIncome(),
+            })}
             ${AddTrForm(this._handleSubmit)}
             ${Transactions({ allData: this.allData })}
           </div>
         </main>
         <footer class="footer"></footer>
       </div>
-    `
+    `;
   }
 }
+
+const Overview = ({ totalBudget, totalIncome, totalExpense }) => {
+  return html`
+    <div class="overview">
+      <h2 class="overview-title">Overview</h2>
+      <div class="overview-detail">
+        <h3 class="overview-total">
+          <span>Total budget</span><span class="amount">$ ${totalBudget}</span>
+        </h3>
+        <h3 class="overview-total">
+          <span>Total income</span><span class="amount">$ ${totalIncome}</span>
+        </h3>
+        <h3 class="overview-total">
+          <span>Total expense</span><span class="amount">$ ${totalExpense}</span>
+        </h3>
+      </div>
+    </div>
+  `;
+};
 
 const Transactions = ({ allData = [] }) => {
   return html`
@@ -83,8 +123,8 @@ const Transactions = ({ allData = [] }) => {
             )}
           </ul>`}
     </div>
-  `
-}
+  `;
+};
 
 const AddTrForm = (handleSubmit) => {
   return html`
@@ -111,8 +151,8 @@ const AddTrForm = (handleSubmit) => {
       </div>
       <button>Add</button>
     </form>
-  `
-}
+  `;
+};
 
 const header = html`
   <header class="header">
@@ -130,4 +170,4 @@ const header = html`
       </li>
     </ul>
   </header>
-`
+`;
