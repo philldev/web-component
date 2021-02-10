@@ -122,12 +122,13 @@ export default css`
   .transactions-item {
     display: grid;
     grid-template:
-      "desc amount" auto /
-      1fr max-content;
+      "desc amount toolbar" auto /
+      1fr max-content auto;
     gap: 4px;
     border: 1px solid #4d4d4d;
     padding: 8px;
     border-radius: 4px;
+    overflow: hidden;
   }
   .transactions-item__desc {
     grid-area: desc;
@@ -135,6 +136,25 @@ export default css`
   }
   .transactions-item__amount {
     grid-area: amount;
+    transform: translateX(48px);
+    transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1)
+  }
+  .transactions-item__toolbar {
+    grid-area: toolbar;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap:8px;
+    align-items:center;
+    transform: translateX(48px);
+    transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1)
+  }
+  .transactions-item__toolbar svg {
+    width: 16px;
+    cursor: pointer;
+  }
+
+  .transactions-item:hover .transactions-item__toolbar, .transactions-item:hover .transactions-item__amount {
+    transform: translateX(0)
   }
 
   .empty {
