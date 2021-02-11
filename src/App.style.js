@@ -80,6 +80,8 @@ export default css`
     padding: 4px 16px;
     width: 100%;
     font-size: 1.4rem;
+    background: #333333;
+    color: #fafafa;
   }
 
   .form-field input:focus {
