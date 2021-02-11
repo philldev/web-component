@@ -1,6 +1,19 @@
-import { LitElement, html, css } from 'lit-element'
-import resetsStyle from './resets.style'
+import { html, LitElement } from 'lit-element'
+import shortid from 'shortid'
 import appStyle from './App.style'
+import { AddTrForm } from './components/AddTrForm'
+import { header } from './components/header'
+import { iconStyle } from './components/icon'
+import { overview } from './components/overview'
+import { transactions } from './components/transactions'
+import resetsStyle from './resets.style'
+
+export const formatCurrency = (currency) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(currency)
+}
 
 export default class App extends LitElement {
   static get properties() {
@@ -8,6 +21,7 @@ export default class App extends LitElement {
       income: Array,
       expense: Array,
       allData: Array,
+      isEditing: Boolean,
     }
   }
   constructor() {
@@ -15,12 +29,14 @@ export default class App extends LitElement {
     this.income = []
     this.expense = []
     this.allData = []
+    this.editing = false
   }
   static get styles() {
-    return [resetsStyle, appStyle]
+    return [resetsStyle, appStyle, iconStyle]
   }
 
   _AddNewItem(newItem) {
+    console.log(newItem)
     if (newItem?.type === 'expense') {
       this.expense = [...this.expense, newItem]
     } else if (newItem?.type === ' income') {
@@ -41,6 +57,7 @@ export default class App extends LitElement {
     } = e.target
     if (desc && amount && type) {
       const newItem = {
+        id: shortid.generate(),
         amount: type === 'expense' ? parseInt(amount) * -1 : parseInt(amount),
         desc,
         type,
@@ -48,16 +65,50 @@ export default class App extends LitElement {
       this._AddNewItem(newItem)
     }
     e.target.reset()
+    e.target.desc.focus()
   }
+
+  _getTotalBudget() {
+    return this.allData.reduce((prev, curr) => {
+      return prev + curr.amount
+    }, 0)
+  }
+  _getTotalIncome() {
+    return this.income.reduce((prev, curr) => {
+      return prev + curr.amount
+    }, 0)
+  }
+  _getTotalExpense() {
+    return this.expense.reduce((prev, curr) => {
+      return prev + curr.amount
+    }, 0)
+  }
+
+  _deleteTransaction(transaction) {
+    this.allData = this.allData.filter((item) => item.id !== transaction.id)
+    if (transaction.type === 'expense') {
+      this.expense = this.expense.filter((item) => item.id !== transaction.id)
+    } else if (transaction.type === 'income') {
+      this.income = this.income.filter((item) => item.id !== transaction.id)
+    }
+  }
+
   render() {
-    console.log(this.allData)
     return html`
       <div class="app-container">
         ${header}
         <main class="main">
           <div class="app">
+            ${overview({
+              totalBudget: this._getTotalBudget(),
+              totalExpense: this._getTotalExpense(),
+              totalIncome: this._getTotalIncome(),
+            })}
             ${AddTrForm(this._handleSubmit)}
-            ${Transactions({ allData: this.allData })}
+            ${transactions({
+              allData: this.allData,
+              deleteTransaction: this._deleteTransaction.bind(this),
+            })}
           </div>
         </main>
         <footer class="footer"></footer>
@@ -65,69 +116,3 @@ export default class App extends LitElement {
     `
   }
 }
-
-const Transactions = ({ allData = [] }) => {
-  return html`
-    <div class="transactions">
-      <h2>Transaction List</h2>
-      ${allData.length === 0
-        ? html` <div class="empty">its empty...</div>`
-        : html` <ul class="transactions-list">
-            ${allData.map(
-              (item) => html`
-                <li class="transactions-item">
-                  <p class="transactions-item__desc">${item.desc}</p>
-                  <p class="transactions-item__amount">$ ${item.amount}</p>
-                </li>
-              `
-            )}
-          </ul>`}
-    </div>
-  `
-}
-
-const AddTrForm = (handleSubmit) => {
-  return html`
-    <form @submit=${handleSubmit} class="form">
-      <h2>Add new transaction</h2>
-      <div class="form-field">
-        <label for="">Description</label>
-        <input type="text" name="desc" placeholder="Stuff" />
-      </div>
-      <div class="form-field">
-        <label for="">Amount</label>
-        <input type="number" name="amount" placeholder="$20" />
-      </div>
-      <div class="form-field">
-        <label for="">Type</label>
-        <div>
-          <input type="radio" name="type" value="expense" />
-          <span>Expense</span>
-        </div>
-        <div>
-          <input type="radio" name="type" value="income" />
-          <span>Income</span>
-        </div>
-      </div>
-      <button>Add</button>
-    </form>
-  `
-}
-
-const header = html`
-  <header class="header">
-    <div class="top-border"></div>
-    <h1>Budget App</h1>
-    <ul>
-      <li>
-        <a href="#">Overview</a>
-      </li>
-      <li>
-        <a href="#expenses">Expenses</a>
-      </li>
-      <li>
-        <a href="#incomes">Incomes</a>
-      </li>
-    </ul>
-  </header>
-`
