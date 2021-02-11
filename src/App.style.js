@@ -1,4 +1,4 @@
-import { css } from "lit-element";
+import { css } from 'lit-element'
 
 export default css`
   :host {
@@ -7,9 +7,9 @@ export default css`
     min-height: 100vh;
     display: grid;
     grid-template:
-      "header header header" auto
-      ".      main   .     " 1fr
-      "footer footer footer" 4rem /
+      'header header header' auto
+      '.      main   .     ' 1fr
+      'footer footer footer' 4rem /
       1fr minmax(auto, 768px) 1fr;
     background-color: #030914;
     color: #fafafa;
@@ -54,7 +54,7 @@ export default css`
   }
 
   .app {
-    margin-top: 48px;
+    margin-top: 30px;
     display: grid;
     gap: 32px;
   }
@@ -74,7 +74,7 @@ export default css`
     color: #eeeeee;
   }
 
-  .form-field input:not([type="radio"]) {
+  .form-field input:not([type='radio']) {
     border: none;
     border-radius: 4px;
     padding: 4px 16px;
@@ -104,9 +104,9 @@ export default css`
   .transactions {
     display: grid;
     grid-template:
-      "title" auto
-      "." 16px
-      "list" auto/
+      'title' auto
+      '.' 16px
+      'list' auto/
       auto;
   }
 
@@ -124,7 +124,7 @@ export default css`
   .transactions-item {
     display: grid;
     grid-template:
-      "desc amount toolbar" auto /
+      'desc amount toolbar' auto /
       1fr max-content auto;
     gap: 4px;
     border: 1px solid #4d4d4d;
@@ -138,25 +138,21 @@ export default css`
   }
   .transactions-item__amount {
     grid-area: amount;
-    transform: translateX(48px);
-    transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1)
+    transform: translateX(24px);
+    transition: transform 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
   }
   .transactions-item__toolbar {
     grid-area: toolbar;
     display: grid;
     grid-template-columns: auto auto;
-    gap:8px;
-    align-items:center;
-    transform: translateX(48px);
-    transition: transform .3s cubic-bezier(0.39, 0.575, 0.565, 1)
-  }
-  .transactions-item__toolbar svg {
-    width: 16px;
-    cursor: pointer;
+    align-items: center;
+    transform: translateX(24px);
+    transition: transform 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
   }
 
-  .transactions-item:hover .transactions-item__toolbar, .transactions-item:hover .transactions-item__amount {
-    transform: translateX(0)
+  .transactions-item:hover .transactions-item__toolbar,
+  .transactions-item:hover .transactions-item__amount {
+    transform: translateX(0);
   }
 
   .empty {
@@ -180,11 +176,11 @@ export default css`
 
   .overview-total {
     font-size: 20px;
-    display:grid;
-    grid-template-columns: 1fr max-content
+    display: grid;
+    grid-template-columns: 1fr max-content;
   }
 
   .overview-total .amount {
     font-weight: bold;
   }
-`;
+`
