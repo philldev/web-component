@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/philldev/budgetapp#readme",
   "dependencies": {
-    "lit-element": "^2.4.0"
+    "lit-element": "^2.4.0",
+    "shortid": "^2.2.16"
   },
   "devDependencies": {
     "snowpack": "^3.0.11"
